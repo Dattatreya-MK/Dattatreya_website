@@ -16,7 +16,7 @@ export default function Contact() {
 
   const inputStyle: React.CSSProperties = {
     width: "100%", padding: "12px 16px", borderRadius: 12,
-    border: "1.5px solid #e2e8f0", fontSize: 14, fontFamily: "'Sora',sans-serif",
+    border: "1.5px solid #e2e8f0", fontSize: 14, fontFamily: "var(--font-sora)",
     background: "#fff", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s",
   };
 
@@ -27,7 +27,7 @@ export default function Contact() {
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 56, marginTop: 64 }}>
           <FadeIn dir="left">
             <div>
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: "#1e293b", marginBottom: 14 }}>Let's Work Together</h3>
+              <h3 style={{ fontSize: 24, fontWeight: 800, color: "#1e293b", marginBottom: 14 }}>Let&apos;s Work Together</h3>
               <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.75, marginBottom: 40 }}>
                 Open to Data Science, ML, and AI internship or full-time opportunities. Feel free to reach out!
               </p>
@@ -77,7 +77,7 @@ export default function Contact() {
               </div>
               <button type="submit" style={{
                 width: "100%", padding: "14px 0", borderRadius: 14, fontSize: 15, fontWeight: 700,
-                cursor: "pointer", fontFamily: "'Sora',sans-serif", border: "none",
+                cursor: "pointer", fontFamily: "var(--font-sora)", border: "none",
                 background: sent ? "linear-gradient(135deg,#00b894,#00cec9)" : "linear-gradient(135deg,#1565c0,#0288d1)",
                 color: "#fff", transition: "all 0.3s", boxShadow: "0 6px 24px rgba(21,101,192,0.35)",
               }}>

@@ -37,7 +37,7 @@ export default function Navbar() {
           {NAV_LINKS.map(n => (
             <button key={n} onClick={() => scrollTo(n)} style={{
               background: "none", border: "none", color: "rgba(255,255,255,0.8)", cursor: "pointer",
-              fontSize: 14, fontWeight: 500, fontFamily: "'Sora',sans-serif", padding: "4px 0",
+              fontSize: 14, fontWeight: 500, fontFamily: "var(--font-sora)", padding: "4px 0",
               transition: "color 0.2s", letterSpacing: "0.3px",
             }}
               onMouseEnter={e => (e.currentTarget.style.color = "#4fc3f7")}

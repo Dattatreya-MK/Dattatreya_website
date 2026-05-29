@@ -2,11 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap');
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { font-family: 'Sora', sans-serif; color: #0f1729; background: #fff; overflow-x: hidden; }
+body { font-family: var(--font-sora), sans-serif; color: #0f1729; background: #fff; overflow-x: hidden; }
 
 @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 @keyframes float { from{transform:translateY(0)} to{transform:translateY(-10px)} }
@@ -36,7 +32,7 @@ body { font-family: 'Sora', sans-serif; color: #0f1729; background: #fff; overfl
   background: linear-gradient(135deg,#1565c0,#0288d1);
   color: #fff; border: none; border-radius: 32px;
   padding: 13px 28px; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: 'Sora',sans-serif;
+  cursor: pointer; font-family: var(--font-sora), sans-serif;
   box-shadow: 0 6px 24px rgba(2,136,209,0.38);
   transition: opacity 0.2s, transform 0.2s;
 }
@@ -46,7 +42,7 @@ body { font-family: 'Sora', sans-serif; color: #0f1729; background: #fff; overfl
   background: transparent; color: #90caf9;
   border: 1.5px solid rgba(144,202,249,0.4); border-radius: 32px;
   padding: 13px 28px; font-size: 14px; font-weight: 600;
-  cursor: pointer; font-family: 'Sora',sans-serif;
+  cursor: pointer; font-family: var(--font-sora), sans-serif;
   transition: all 0.2s;
 }
 .btn-outline:hover { background: rgba(144,202,249,0.1); }

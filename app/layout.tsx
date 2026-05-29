@@ -1,5 +1,18 @@
 import type { Metadata } from "next";
+import { Sora, Space_Mono } from "next/font/google";
 import "./globals.css";
+
+const sora = Sora({
+  subsets: ["latin"],
+  variable: "--font-sora",
+  weight: ["300", "400", "500", "600", "700", "800"],
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  variable: "--font-space-mono",
+  weight: ["400", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Dattatreya M K | Data Science & ML Portfolio",
@@ -15,12 +28,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
-      </head>
+    <html lang="en" className={`${sora.variable} ${spaceMono.variable}`}>
       <body>{children}</body>
     </html>
   );
