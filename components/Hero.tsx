@@ -1,83 +1,132 @@
 "use client";
+import { motion } from "framer-motion";
+import { ArrowRight, Download, Mail, Rocket, Brain, Code, Cpu } from "lucide-react";
 
 interface Props { onScrollTo: (id: string) => void; }
 
-const STARS = Array.from({ length: 14 }, (_, i) => ({
+const STARS = Array.from({ length: 20 }, (_, i) => ({
   w: (i % 3) + 2, l: (i * 7.3) % 100, t: (i * 11.7) % 100, d: (i % 3) + 2
 }));
 
 export default function Hero({ onScrollTo }: Props) {
   return (
-    <section id="hero" style={{
-      minHeight: "100vh", display: "flex", alignItems: "center",
-      background: "linear-gradient(160deg,#0a122d 0%,#0d2150 40%,#0f3460 70%,#1565c0 100%)",
-      position: "relative", overflow: "hidden", paddingTop: 80,
-    }}>
-      {/* Stars */}
-      <div style={{ position: "absolute", inset: 0, overflow: "hidden", pointerEvents: "none" }}>
+    <section id="hero" className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-[#0a122d]">
+      {/* Background Elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-200px] right-[-200px] w-[600px] h-[600px] rounded-full bg-radial-gradient(circle,rgba(21,101,192,0.2) 0%,transparent 70%)" />
+        <div className="absolute bottom-[-100px] left-[-100px] w-[400px] h-[400px] rounded-full bg-radial-gradient(circle,rgba(79,195,247,0.1) 0%,transparent 70%)" />
+        
         {STARS.map((s, i) => (
-          <div key={i} style={{
-            position: "absolute", width: s.w, height: s.w, background: "rgba(79,195,247,0.8)",
-            borderRadius: "50%", left: `${s.l}%`, top: `${s.t}%`,
-            animation: `twinkle ${s.d}s ease-in-out infinite alternate`,
-          }} />
+          <motion.div
+            key={i}
+            initial={{ opacity: 0.2 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: s.d, repeat: Infinity, repeatType: "alternate" }}
+            className="absolute rounded-full bg-[#4fc3f7]/80"
+            style={{ width: s.w, height: s.w, left: `${s.l}%`, top: `${s.t}%` }}
+          />
         ))}
-        <div style={{ position: "absolute", width: 600, height: 600, borderRadius: "50%", background: "radial-gradient(circle,rgba(21,101,192,0.22) 0%,transparent 70%)", top: -200, right: -200 }} />
-        <div style={{ position: "absolute", width: 400, height: 400, borderRadius: "50%", background: "radial-gradient(circle,rgba(79,195,247,0.1) 0%,transparent 70%)", bottom: -100, left: -100 }} />
       </div>
 
-      <div style={{ maxWidth: 1140, margin: "0 auto", padding: "60px 24px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 64, alignItems: "center", position: "relative", zIndex: 2, width: "100%" }}>
-        {/* Text */}
-        <div>
-          <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(79,195,247,0.15)", border: "1px solid rgba(79,195,247,0.3)", borderRadius: 24, padding: "6px 16px", marginBottom: 24 }}>
-            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#4fc3f7" }} className="anim-pulse" />
-            <span style={{ color: "#4fc3f7", fontSize: 13, fontWeight: 500, letterSpacing: "0.5px" }}>Available for Opportunities</span>
+      <div className="container mx-auto px-6 z-10 grid lg:grid-cols-2 gap-16 items-center w-full">
+        {/* Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#4fc3f7]/15 border border-[#4fc3f7]/30 mb-8">
+            <span className="w-2 h-2 rounded-full bg-[#4fc3f7] animate-pulse" />
+            <span className="text-[#4fc3f7] text-xs font-semibold tracking-wider">Available for Opportunities</span>
           </div>
 
-          <h1 style={{ fontSize: "clamp(36px,5vw,62px)", fontWeight: 800, color: "#fff", lineHeight: 1.1, marginBottom: 12, letterSpacing: "-2px" }}>
+          <h1 className="text-5xl lg:text-7xl font-extrabold text-white leading-[1.1] mb-4 tracking-tighter">
             Dattatreya<br />
-            <span style={{ background: "linear-gradient(90deg,#4fc3f7,#81d4fa,#b3e5fc)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>M K</span>
+            <span className="bg-gradient-to-r from-[#4fc3f7] via-[#81d4fa] to-[#b3e5fc] bg-clip-text text-transparent">M K</span>
           </h1>
-          <p style={{ fontSize: "clamp(16px,2vw,21px)", fontWeight: 600, color: "#90caf9", marginBottom: 16, letterSpacing: "-0.3px" }}>
-            Data Science & Machine Learning Enthusiast
+          
+          <p className="text-xl lg:text-2xl font-semibold text-[#90caf9] mb-4 tracking-tight">
+            Data Science & Machine Learning Specialist
           </p>
-          <p style={{ fontSize: 16, color: "rgba(255,255,255,0.65)", lineHeight: 1.75, marginBottom: 40, maxWidth: 480 }}>
-            Building AI-powered solutions using Machine Learning, Data Analytics, NLP, and Generative AI.
+          
+          <p className="text-white/60 text-lg leading-relaxed mb-10 max-w-lg font-medium">
+            Architecting intelligent systems through advanced Machine Learning, NLP, and Generative AI to solve complex real-world challenges.
           </p>
 
-          <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
-            <button className="btn-primary">⬇ Download Resume</button>
-            <button className="btn-outline" onClick={() => onScrollTo("projects")}>🚀 View Projects</button>
-            <button className="btn-outline" onClick={() => onScrollTo("contact")}>✉️ Contact Me</button>
+          <div className="flex flex-wrap gap-4 mb-12">
+            <button className="btn-primary flex items-center gap-2">
+              <Download size={18} /> Download Resume
+            </button>
+            <button onClick={() => onScrollTo("projects")} className="btn-outline flex items-center gap-2">
+              <Rocket size={18} /> Projects
+            </button>
+            <button onClick={() => onScrollTo("contact")} className="btn-outline flex items-center gap-2">
+              <Mail size={18} /> Contact
+            </button>
           </div>
 
-          <div style={{ display: "flex", gap: 32, marginTop: 44 }}>
+          <div className="flex gap-10">
             {[{n:"5+",s:"Projects"},{n:"1+",s:"Internship"},{n:"3+",s:"Certifications"}].map(x => (
-              <div key={x.s} style={{ textAlign: "center" }}>
-                <div style={{ fontSize: 28, fontWeight: 800, color: "#4fc3f7", lineHeight: 1 }}>{x.n}</div>
-                <div style={{ fontSize: 12, color: "rgba(255,255,255,0.5)", marginTop: 4 }}>{x.s}</div>
+              <div key={x.s}>
+                <div className="text-3xl font-black text-[#4fc3f7]">{x.n}</div>
+                <div className="text-xs text-white/40 font-bold uppercase tracking-widest mt-1">{x.s}</div>
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Avatar */}
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <div style={{ position: "relative" }}>
-            <div style={{ width: 300, height: 300, borderRadius: "50%", background: "linear-gradient(135deg,#1565c0,#0288d1,#4fc3f7)", padding: 4 }}>
-              <div style={{ width: "100%", height: "100%", borderRadius: "50%", background: "linear-gradient(160deg,#1a2a5e,#1e3a7a)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 100 }}>👨‍💻</div>
+        {/* Visual Content */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="flex justify-center"
+        >
+          <div className="relative">
+            <div className="w-[300px] h-[300px] lg:w-[400px] lg:h-[400px] rounded-full bg-gradient-to-br from-[#1565c0] via-[#0288d1] to-[#4fc3f7] p-1 shadow-2xl shadow-[#1565c0]/30">
+              <div className="w-full h-full rounded-full bg-[#1a2a5e] flex items-center justify-center overflow-hidden">
+                <div className="text-9xl lg:text-[160px]">👨‍💻</div>
+              </div>
             </div>
-            {[{pos:{top:16,right:-20},text:"ML",cls:"anim-float"},{pos:{bottom:24,left:-30},text:"AI",cls:"anim-float-2"},{pos:{top:"42%",right:-44},text:"NLP",cls:"anim-float-3"}].map((b,i) => (
-              <div key={i} className={b.cls} style={{ position: "absolute", ...b.pos as React.CSSProperties, background: "linear-gradient(135deg,#1565c0,#0288d1)", color: "#fff", fontSize: 11, fontWeight: 700, padding: "6px 14px", borderRadius: 20, boxShadow: "0 4px 16px rgba(2,136,209,0.5)" }}>{b.text}</div>
-            ))}
+            
+            {/* Floating Badges */}
+            <motion.div
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 bg-gradient-to-br from-[#1565c0] to-[#0288d1] text-white p-4 rounded-2xl shadow-xl flex items-center gap-2"
+            >
+              <Brain size={20} className="text-[#4fc3f7]" />
+              <span className="text-xs font-bold tracking-tight">Machine Learning</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 15, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+              className="absolute bottom-8 -left-8 bg-gradient-to-br from-[#1565c0] to-[#0288d1] text-white p-4 rounded-2xl shadow-xl flex items-center gap-2"
+            >
+              <Cpu size={20} className="text-[#4fc3f7]" />
+              <span className="text-xs font-bold tracking-tight">AI & NLP</span>
+            </motion.div>
+
+            <motion.div
+              animate={{ x: [0, 10, 0] }}
+              transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+              className="absolute top-1/2 -right-12 bg-gradient-to-br from-[#1565c0] to-[#0288d1] text-white p-4 rounded-2xl shadow-xl flex items-center gap-2"
+            >
+              <Code size={20} className="text-[#4fc3f7]" />
+              <span className="text-xs font-bold tracking-tight">Generative AI</span>
+            </motion.div>
           </div>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <div style={{ position: "absolute", bottom: 32, left: "50%", transform: "translateX(-50%)", textAlign: "center" }}>
-        <div style={{ color: "rgba(255,255,255,0.4)", fontSize: 11, letterSpacing: "2px", marginBottom: 8 }}>SCROLL</div>
-        <div className="anim-scroll" style={{ width: 1, height: 40, background: "linear-gradient(to bottom,rgba(79,195,247,0.7),transparent)", margin: "0 auto" }} />
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40">
+        <span className="text-[10px] font-black tracking-[4px] text-white">SCROLL</span>
+        <motion.div
+          animate={{ height: [0, 40, 0], opacity: [0, 1, 0] }}
+          transition={{ duration: 2, repeat: Infinity }}
+          className="w-[1px] bg-gradient-to-b from-[#4fc3f7] to-transparent"
+        />
       </div>
     </section>
   );

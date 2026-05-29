@@ -1,31 +1,53 @@
+"use client";
+import { Github, Linkedin, Mail, Heart } from "lucide-react";
+import { motion } from "framer-motion";
+
 export default function Footer() {
   const socials = [
-    { label: "GH", href: "https://github.com/Dattatreya-MK", title: "GitHub" },
-    { label: "LI", href: "https://linkedin.com", title: "LinkedIn" },
-    { label: "✉", href: "mailto:dattatreyamk@email.com", title: "Email" },
+    { icon: <Github size={20} />, href: "https://github.com/Dattatreya-MK", title: "GitHub" },
+    { icon: <Linkedin size={20} />, href: "https://linkedin.com", title: "LinkedIn" },
+    { icon: <Mail size={20} />, href: "mailto:dattatreyamk@email.com", title: "Email" },
   ];
+
   return (
-    <footer style={{ background: "linear-gradient(160deg,#0a122d,#0d2150)", color: "rgba(255,255,255,0.7)", padding: "48px 24px 36px" }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto", textAlign: "center" }}>
-        <div style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 20, letterSpacing: "-1px" }}>
-          <span style={{ color: "#4fc3f7" }}>D</span>MK
-        </div>
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, marginBottom: 28 }}>
-          {socials.map(s => (
-            <a key={s.label} href={s.href} title={s.title} target="_blank" rel="noreferrer" style={{
-              width: 44, height: 44, borderRadius: "50%", background: "rgba(255,255,255,0.06)",
-              border: "1px solid rgba(255,255,255,0.1)", display: "flex", alignItems: "center",
-              justifyContent: "center", color: "rgba(255,255,255,0.7)", textDecoration: "none",
-              fontSize: 13, fontWeight: 700, transition: "all 0.2s",
-            }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = "rgba(79,195,247,0.2)"; (e.currentTarget as HTMLElement).style.color = "#4fc3f7"; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.06)"; (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.7)"; }}
-            >{s.label}</a>
+    <footer className="bg-[#0a122d] text-white/50 py-16 px-6 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      
+      <div className="container mx-auto max-w-6xl text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-3xl font-black text-white mb-8 tracking-tighter"
+        >
+          <span className="text-[#4fc3f7]">D</span>MK
+        </motion.div>
+
+        <div className="flex justify-center gap-4 mb-12">
+          {socials.map((s, idx) => (
+            <motion.a 
+              key={idx}
+              href={s.href} 
+              title={s.title} 
+              target="_blank" 
+              rel="noreferrer" 
+              whileHover={{ y: -5, scale: 1.1 }}
+              className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-white/70 hover:text-[#4fc3f7] hover:bg-[#4fc3f7]/10 hover:border-[#4fc3f7]/30 transition-all duration-300"
+            >
+              {s.icon}
+            </motion.a>
           ))}
         </div>
-        <p style={{ fontSize: 13, margin: 0 }}>
-          Designed and Developed by <span style={{ color: "#4fc3f7", fontWeight: 700 }}>Dattatreya M K</span> · {new Date().getFullYear()}
-        </p>
+
+        <motion.p 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="text-sm font-medium flex items-center justify-center gap-2"
+        >
+          Built with <Heart size={14} className="text-[#4fc3f7]" fill="currentColor" /> by <span className="text-white font-bold">Dattatreya M K</span> · {new Date().getFullYear()}
+        </motion.p>
       </div>
     </footer>
   );

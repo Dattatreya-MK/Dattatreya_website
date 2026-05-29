@@ -1,36 +1,62 @@
+"use client";
+import { Briefcase, CheckCircle2 } from "lucide-react";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
 
-const RESP = ["Data preprocessing and cleaning","Exploratory Data Analysis (EDA)","Machine Learning model development","Predictive Analytics","Data Visualization","Business reporting and insights"];
+const RESP = [
+  "Data preprocessing and cleaning",
+  "Exploratory Data Analysis (EDA)",
+  "Machine Learning model development",
+  "Predictive Analytics",
+  "Data Visualization",
+  "Business reporting and insights"
+];
 
 export default function Experience() {
   return (
-    <section id="experience" style={{ padding: "100px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-        <FadeIn><SectionHeader tag="03" title="Experience" sub="Work History" /></FadeIn>
-        <div style={{ marginTop: 64, position: "relative", maxWidth: 860 }}>
-          <div style={{ position: "absolute", left: 19, top: 0, bottom: 0, width: 2, background: "linear-gradient(to bottom,#1565c0,#4fc3f7)", borderRadius: 2 }} />
-          <div style={{ paddingLeft: 60 }}>
-            <FadeIn delay={0.1}>
-              <div style={{ position: "relative", background: "#fff", border: "1px solid #e8f0fe", borderRadius: 20, padding: "32px 36px", boxShadow: "0 4px 32px rgba(21,101,192,0.07)" }}>
-                <div style={{ position: "absolute", left: -41, top: 34, width: 20, height: 20, borderRadius: "50%", background: "linear-gradient(135deg,#1565c0,#0288d1)", border: "3px solid #fff", boxShadow: "0 0 0 3px rgba(21,101,192,0.2)" }} />
-                <div style={{ display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12, marginBottom: 20 }}>
-                  <div>
-                    <h3 style={{ fontSize: 20, fontWeight: 700, color: "#1e293b", margin: "0 0 4px" }}>Data Science Intern</h3>
-                    <p style={{ fontSize: 15, fontWeight: 600, color: "#1565c0", margin: 0 }}>TakeIt Smart (OPC) Pvt. Ltd.</p>
-                  </div>
-                  <span style={{ background: "linear-gradient(135deg,#e3f2fd,#e8f4fd)", color: "#1565c0", fontSize: 13, fontWeight: 600, padding: "8px 18px", borderRadius: 24, border: "1px solid rgba(21,101,192,0.15)", height: "fit-content" }}>
-                    Feb 2026 – May 2026
-                  </span>
-                </div>
-                <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 10 }}>
-                  {RESP.map(r => (
-                    <div key={r} style={{ display: "flex", gap: 10, alignItems: "flex-start" }}>
-                      <span style={{ width: 6, height: 6, borderRadius: "50%", background: "#1565c0", marginTop: 7, flexShrink: 0 }} />
-                      <span style={{ fontSize: 14, color: "#475569" }}>{r}</span>
+    <section id="experience" className="py-24 px-6 bg-white">
+      <div className="container mx-auto max-w-5xl">
+        <FadeIn>
+          <SectionHeader tag="03" title="Experience" sub="Professional Milestones" />
+        </FadeIn>
+        
+        <div className="mt-20 relative">
+          {/* Timeline Line */}
+          <div className="absolute left-0 md:left-1/2 top-0 bottom-0 w-[2px] bg-gradient-to-b from-[#1565c0] via-[#4fc3f7] to-transparent hidden md:block transform -translate-x-1/2" />
+          
+          <div className="relative">
+            <FadeIn delay={0.2}>
+              <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+                <div className="md:w-1/2 md:text-right">
+                  <div className="bg-[#f8fbff] p-8 rounded-[32px] border border-[#e8f0fe] shadow-sm hover:shadow-xl transition-shadow duration-500 relative group overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#1565c0]/5 rounded-bl-full transform translate-x-8 -translate-y-8" />
+                    
+                    <div className="inline-block px-4 py-1.5 rounded-full bg-[#1565c0]/10 text-[#1565c0] text-[11px] font-bold tracking-widest uppercase mb-4">
+                      Feb 2026 – May 2026
                     </div>
-                  ))}
+                    
+                    <h3 className="text-xl font-bold text-[#1e293b] mb-2">Data Science Intern</h3>
+                    <p className="text-[#1565c0] font-bold text-sm mb-6 flex items-center md:justify-end gap-2">
+                      <Briefcase size={16} /> TakeIt Smart (OPC) Pvt. Ltd.
+                    </p>
+                    
+                    <div className="grid grid-cols-1 gap-3">
+                      {RESP.map(r => (
+                        <div key={r} className="flex gap-3 items-start md:flex-row-reverse text-left md:text-right">
+                          <CheckCircle2 size={16} className="text-[#1565c0] mt-0.5 shrink-0" />
+                          <span className="text-sm text-[#475569] font-medium leading-tight">{r}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
+
+                {/* Timeline Node */}
+                <div className="hidden md:flex absolute left-1/2 transform -translate-x-1/2 w-12 h-12 rounded-full bg-white border-4 border-[#1565c0] items-center justify-center z-10 shadow-lg">
+                  <Briefcase size={20} className="text-[#1565c0]" />
+                </div>
+                
+                <div className="md:w-1/2" />
               </div>
             </FadeIn>
           </div>

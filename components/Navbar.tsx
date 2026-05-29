@@ -1,7 +1,16 @@
 "use client";
 import { useState, useEffect } from "react";
+import { Menu, X, Rocket } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const NAV_LINKS = ["About","Skills","Experience","Projects","Education","Certifications","Contact"];
+const NAV_LINKS = [
+  { name: "About", id: "about" },
+  { name: "Skills", id: "skills" },
+  { name: "Experience", id: "experience" },
+  { name: "Projects", id: "projects" },
+  { name: "Education", id: "education" },
+  { name: "Contact", id: "contact" }
+];
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -14,61 +23,86 @@ export default function Navbar() {
   }, []);
 
   const scrollTo = (id: string) => {
-    document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     setMenuOpen(false);
   };
 
   return (
-    <nav style={{
-      position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-      background: scrolled ? "rgba(10,18,45,0.97)" : "transparent",
-      backdropFilter: scrolled ? "blur(18px)" : "none",
-      transition: "all 0.4s",
-      padding: scrolled ? "14px 0" : "22px 0",
-      borderBottom: scrolled ? "1px solid rgba(255,255,255,0.07)" : "none",
-    }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto", padding: "0 24px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-        <span style={{ fontWeight: 800, fontSize: 20, color: "#fff", letterSpacing: "-0.5px", cursor:"pointer" }} onClick={() => scrollTo("hero")}>
-          <span style={{ color: "#4fc3f7" }}>D</span>MK
-        </span>
+    <nav className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-500 ${
+      scrolled ? "py-4 bg-[#0a122d]/80 backdrop-blur-xl border-b border-white/5 shadow-2xl" : "py-8 bg-transparent"
+    }`}>
+      <div className="container mx-auto px-6 max-w-6xl flex items-center justify-between">
+        <motion.span 
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
+          className="text-2xl font-black text-white cursor-pointer tracking-tighter"
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+        >
+          <span className="text-[#4fc3f7]">D</span>MK
+        </motion.span>
 
         {/* Desktop Nav */}
-        <div style={{ display: "flex", gap: 28, alignItems: "center" }} className="hidden md:flex">
-          {NAV_LINKS.map(n => (
-            <button key={n} onClick={() => scrollTo(n)} style={{
-              background: "none", border: "none", color: "rgba(255,255,255,0.8)", cursor: "pointer",
-              fontSize: 14, fontWeight: 500, fontFamily: "var(--font-sora)", padding: "4px 0",
-              transition: "color 0.2s", letterSpacing: "0.3px",
-            }}
-              onMouseEnter={e => (e.currentTarget.style.color = "#4fc3f7")}
-              onMouseLeave={e => (e.currentTarget.style.color = "rgba(255,255,255,0.8)")}
-            >{n}</button>
+        <div className="hidden md:flex items-center gap-8">
+          {NAV_LINKS.map((link, idx) => (
+            <motion.button
+              key={link.id}
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1 }}
+              onClick={() => scrollTo(link.id)}
+              className="text-sm font-bold text-white/70 hover:text-[#4fc3f7] transition-colors relative group"
+            >
+              {link.name}
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#4fc3f7] transition-all group-hover:w-full" />
+            </motion.button>
           ))}
-          <button onClick={() => scrollTo("contact")} className="btn-primary" style={{ borderRadius: 24, padding: "10px 22px", fontSize: 13 }}>
-            Hire Me
-          </button>
+          <motion.button 
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => scrollTo("contact")}
+            className="flex items-center gap-2 bg-[#4fc3f7] text-[#0a122d] px-6 py-2.5 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-[#4fc3f7]/20 hover:bg-white transition-colors"
+          >
+            <Rocket size={14} /> Hire Me
+          </motion.button>
         </div>
 
-        {/* Hamburger */}
-        <button className="md:hidden" onClick={() => setMenuOpen(!menuOpen)} style={{ background: "none", border: "none", color: "#fff", fontSize: 26, cursor: "pointer" }}>
-          {menuOpen ? "✕" : "☰"}
+        {/* Mobile Toggle */}
+        <button className="md:hidden text-white p-2" onClick={() => setMenuOpen(!menuOpen)}>
+          {menuOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div style={{ background: "rgba(10,18,45,0.98)", padding: "16px 24px 24px" }}>
-          {NAV_LINKS.map(n => (
-            <div key={n} onClick={() => scrollTo(n)} style={{
-              padding: "12px 0", color: "rgba(255,255,255,0.85)", cursor: "pointer",
-              fontSize: 15, fontWeight: 500, borderBottom: "1px solid rgba(255,255,255,0.06)",
-            }}>{n}</div>
-          ))}
-          <button onClick={() => scrollTo("contact")} className="btn-primary" style={{ marginTop: 16, width: "100%" }}>
-            Hire Me
-          </button>
-        </div>
-      )}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-[#0a122d] border-t border-white/5 overflow-hidden"
+          >
+            <div className="p-6 flex flex-col gap-4">
+              {NAV_LINKS.map((link) => (
+                <button
+                  key={link.id}
+                  onClick={() => scrollTo(link.id)}
+                  className="text-lg font-bold text-white/80 text-left py-2 border-b border-white/5"
+                >
+                  {link.name}
+                </button>
+              ))}
+              <button 
+                onClick={() => scrollTo("contact")}
+                className="mt-4 bg-[#4fc3f7] text-[#0a122d] py-4 rounded-2xl text-sm font-black uppercase tracking-widest"
+              >
+                Hire Me
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 }

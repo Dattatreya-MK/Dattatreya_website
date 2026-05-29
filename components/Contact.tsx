@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { Mail, Phone, Linkedin, Github, Send, CheckCircle2 } from "lucide-react";
 import FadeIn from "./FadeIn";
 import SectionHeader from "./SectionHeader";
 
@@ -14,75 +15,103 @@ export default function Contact() {
     setForm({ name: "", email: "", message: "" });
   };
 
-  const inputStyle: React.CSSProperties = {
-    width: "100%", padding: "12px 16px", borderRadius: 12,
-    border: "1.5px solid #e2e8f0", fontSize: 14, fontFamily: "var(--font-sora)",
-    background: "#fff", outline: "none", boxSizing: "border-box", transition: "border-color 0.2s",
-  };
+  const contactInfo = [
+    { icon: <Mail size={20} />, label: "Email", val: "dattatreyamk@email.com", href: "mailto:dattatreyamk@email.com" },
+    { icon: <Phone size={20} />, label: "Phone", val: "+91 XXXXXXXXXX", href: "tel:+91XXXXXXXXXX" },
+    { icon: <Linkedin size={20} />, label: "LinkedIn", val: "linkedin.com/in/dattatreyamk", href: "https://linkedin.com" },
+    { icon: <Github size={20} />, label: "GitHub", val: "github.com/Dattatreya-MK", href: "https://github.com/Dattatreya-MK" },
+  ];
 
   return (
-    <section id="contact" style={{ padding: "100px 24px", background: "#fff" }}>
-      <div style={{ maxWidth: 1140, margin: "0 auto" }}>
-        <FadeIn><SectionHeader tag="07" title="Get In Touch" sub="Contact Me" /></FadeIn>
-        <div style={{ display: "grid", gridTemplateColumns: "1fr 1.2fr", gap: 56, marginTop: 64 }}>
+    <section id="contact" className="py-24 px-6 bg-white">
+      <div className="container mx-auto max-w-6xl">
+        <FadeIn>
+          <SectionHeader tag="07" title="Get In Touch" sub="Contact Me" />
+        </FadeIn>
+        
+        <div className="grid lg:grid-cols-2 gap-16 mt-20 items-start">
           <FadeIn dir="left">
             <div>
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: "#1e293b", marginBottom: 14 }}>Let&apos;s Work Together</h3>
-              <p style={{ fontSize: 16, color: "#6b7280", lineHeight: 1.75, marginBottom: 40 }}>
-                Open to Data Science, ML, and AI internship or full-time opportunities. Feel free to reach out!
+              <h3 className="text-3xl font-black text-[#1e293b] mb-6 tracking-tight">Let&apos;s Build Something Intelligent</h3>
+              <p className="text-lg text-[#6b7280] leading-relaxed mb-12 font-medium">
+                Whether you have a project in mind, an opportunity to discuss, or just want to say hello—I&apos;m all ears.
               </p>
-              {[
-                { icon: "✉️", label: "Email", val: "dattatreyamk@email.com", href: "mailto:dattatreyamk@email.com" },
-                { icon: "📞", label: "Phone", val: "+91 XXXXXXXXXX", href: "tel:+91XXXXXXXXXX" },
-                { icon: "💼", label: "LinkedIn", val: "linkedin.com/in/dattatreyamk", href: "https://linkedin.com" },
-                { icon: "🐙", label: "GitHub", val: "github.com/Dattatreya-MK", href: "https://github.com/Dattatreya-MK" },
-              ].map(item => (
-                <a key={item.label} href={item.href} target="_blank" rel="noreferrer" style={{ display: "flex", gap: 16, marginBottom: 20, alignItems: "center", textDecoration: "none", transition: "opacity 0.2s" }}
-                  onMouseEnter={e => (e.currentTarget.style.opacity = "0.75")}
-                  onMouseLeave={e => (e.currentTarget.style.opacity = "1")}
-                >
-                  <div style={{ width: 46, height: 46, borderRadius: 14, background: "linear-gradient(135deg,#e3f2fd,#e8f4fd)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 20, flexShrink: 0 }}>{item.icon}</div>
-                  <div>
-                    <div style={{ fontSize: 12, color: "#9ca3af", fontWeight: 500 }}>{item.label}</div>
-                    <div style={{ fontSize: 14, color: "#1565c0", fontWeight: 600 }}>{item.val}</div>
-                  </div>
-                </a>
-              ))}
+              
+              <div className="space-y-6">
+                {contactInfo.map((item, idx) => (
+                  <a 
+                    key={idx} 
+                    href={item.href} 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="flex items-center gap-5 p-4 rounded-2xl border border-transparent hover:border-[#e3f2fd] hover:bg-[#f8fbff] transition-all duration-300 group no-underline"
+                  >
+                    <div className="w-12 h-12 rounded-xl bg-[#e3f2fd] text-[#1565c0] flex items-center justify-center group-hover:bg-[#1565c0] group-hover:text-white transition-colors">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <div className="text-[11px] font-black text-[#9ca3af] uppercase tracking-widest">{item.label}</div>
+                      <div className="text-sm font-bold text-[#1e293b] group-hover:text-[#1565c0] transition-colors">{item.val}</div>
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </FadeIn>
 
-          <FadeIn dir="right" delay={0.1}>
-            <form onSubmit={handleSubmit} style={{ background: "linear-gradient(160deg,#f8fbff,#f0f7ff)", borderRadius: 24, padding: 36, border: "1px solid #e8f0fe" }}>
-              {[
-                { id: "name" as const, label: "Your Name", type: "text", placeholder: "John Doe" },
-                { id: "email" as const, label: "Email Address", type: "email", placeholder: "john@email.com" },
-              ].map(f => (
-                <div key={f.id} style={{ marginBottom: 20 }}>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 8 }}>{f.label}</label>
-                  <input type={f.type} placeholder={f.placeholder} value={form[f.id]}
-                    onChange={e => setForm({ ...form, [f.id]: e.target.value })} required style={inputStyle}
-                    onFocus={e => (e.target.style.borderColor = "#1565c0")}
-                    onBlur={e => (e.target.style.borderColor = "#e2e8f0")}
+          <FadeIn dir="right" delay={0.2}>
+            <form onSubmit={handleSubmit} className="bg-gradient-to-br from-[#f8fbff] to-[#f0f7ff] rounded-[40px] p-10 border border-[#e8f0fe] shadow-inner">
+              <div className="space-y-6">
+                <div>
+                  <label className="block text-xs font-black text-[#374151] uppercase tracking-widest mb-3 ml-1">Your Name</label>
+                  <input 
+                    type="text" 
+                    placeholder="John Doe" 
+                    value={form.name}
+                    onChange={e => setForm({ ...form, name: e.target.value })} 
+                    required 
+                    className="w-full px-6 py-4 rounded-2xl border-2 border-white bg-white/50 focus:bg-white focus:border-[#1565c0] outline-none transition-all duration-300 font-medium text-sm"
                   />
                 </div>
-              ))}
-              <div style={{ marginBottom: 24 }}>
-                <label style={{ display: "block", fontSize: 13, fontWeight: 600, color: "#374151", marginBottom: 8 }}>Message</label>
-                <textarea placeholder="Your message..." rows={5} value={form.message}
-                  onChange={e => setForm({ ...form, message: e.target.value })} required
-                  style={{ ...inputStyle, resize: "vertical" }}
-                  onFocus={e => (e.target.style.borderColor = "#1565c0")}
-                  onBlur={e => (e.target.style.borderColor = "#e2e8f0")}
-                />
+                <div>
+                  <label className="block text-xs font-black text-[#374151] uppercase tracking-widest mb-3 ml-1">Email Address</label>
+                  <input 
+                    type="email" 
+                    placeholder="john@example.com" 
+                    value={form.email}
+                    onChange={e => setForm({ ...form, email: e.target.value })} 
+                    required 
+                    className="w-full px-6 py-4 rounded-2xl border-2 border-white bg-white/50 focus:bg-white focus:border-[#1565c0] outline-none transition-all duration-300 font-medium text-sm"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-black text-[#374151] uppercase tracking-widest mb-3 ml-1">Message</label>
+                  <textarea 
+                    placeholder="Tell me about your project..." 
+                    rows={5} 
+                    value={form.message}
+                    onChange={e => setForm({ ...form, message: e.target.value })} 
+                    required
+                    className="w-full px-6 py-4 rounded-2xl border-2 border-white bg-white/50 focus:bg-white focus:border-[#1565c0] outline-none transition-all duration-300 font-medium text-sm resize-none"
+                  />
+                </div>
+                
+                <button 
+                  type="submit" 
+                  disabled={sent}
+                  className={`w-full py-5 rounded-2xl text-sm font-black uppercase tracking-[2px] flex items-center justify-center gap-3 transition-all duration-500 shadow-xl ${
+                    sent 
+                    ? "bg-[#00b894] text-white shadow-[#00b894]/20" 
+                    : "bg-[#1565c0] text-white hover:bg-[#0288d1] shadow-[#1565c0]/20"
+                  }`}
+                >
+                  {sent ? (
+                    <><CheckCircle2 size={18} /> Sent Successfully</>
+                  ) : (
+                    <><Send size={18} /> Send Message</>
+                  )}
+                </button>
               </div>
-              <button type="submit" style={{
-                width: "100%", padding: "14px 0", borderRadius: 14, fontSize: 15, fontWeight: 700,
-                cursor: "pointer", fontFamily: "var(--font-sora)", border: "none",
-                background: sent ? "linear-gradient(135deg,#00b894,#00cec9)" : "linear-gradient(135deg,#1565c0,#0288d1)",
-                color: "#fff", transition: "all 0.3s", boxShadow: "0 6px 24px rgba(21,101,192,0.35)",
-              }}>
-                {sent ? "✓ Message Sent!" : "Send Message →"}
-              </button>
             </form>
           </FadeIn>
         </div>
